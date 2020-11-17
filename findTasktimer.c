@@ -16,10 +16,12 @@ MODULE_PARM_DESC(name, "The name requested");
 
 unsigned long j, one, half;
 
-void simple_timer_function(struct timer_list *); //new
 static struct timer_list simple_timer;
 
-
+static void my_timer_callback(struct timer_list *timer)
+{
+    printk(KERN_INFO "Timer Handler called.\n");
+}
 
 void procs_info_print(void)
 {
@@ -56,7 +58,7 @@ void procs_info_print(void)
 int init_module(void)
 {
         printk(KERN_INFO "[ INIT ==\n");
-        add_timer(&simple_timer); //new
+        timer_setup(&simple_timer, my_timer_callback, 0);//new
         mod_timer (&simple_timer, jiffies + ( msecs_to_jiffies(500))); //new
         procs_info_print();
 
