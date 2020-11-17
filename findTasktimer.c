@@ -43,6 +43,7 @@ void procs_info_print(void)
         if (Task == 0)
         {
             printk(KERN_INFO "Found Process %s with PID: %d", name, Num);
+            return 0;
         }
         else
         {
